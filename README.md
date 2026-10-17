@@ -39,6 +39,12 @@ The foe draws one **Oracle card** for the entire act. Its portrait and power sta
 
 When Will reaches zero, Thread saves you first, then Favor. Every rescue adds Burden, so survival is never free.
 
+The pause menu keeps the run between turns, and the full rules sit one key away from the board.
+
+| Pause | Rules |
+| --- | --- |
+| <img src="docs/screens/pause.png" alt="Pause menu" width="100%"> | <img src="docs/screens/rules.png" alt="Rules modal" width="100%"> |
+
 ## Three acts, three boards
 
 | Act | Place | Question |
@@ -52,6 +58,8 @@ When Will reaches zero, Thread saves you first, then Favor. Every rescue adds Bu
 Each act ends with a story choice that changes your standing in the next one, and between acts a new character card surfaces and joins the circle. The choices compound. A first reading and a third reading do not end in the same place.
 
 <img src="docs/screens/story-choice.png" alt="Story choice after Act I" width="100%">
+
+<img src="docs/screens/recruit.png" alt="Recruiting a new card between acts" width="100%">
 
 <img src="docs/screens/final-choice.png" alt="Final choice at Delphi" width="100%">
 
