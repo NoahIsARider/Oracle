@@ -10,7 +10,7 @@ Oracle is a small complete game. You draw a Fate card, pick two companions, and 
 
 Windows portable build, no installer.
 
-[**Oracle-Windows.zip (v1.0.0)**](https://github.com/NoahIsARider/Oracle/releases/latest) — unpack, run `Oracle.exe`.
+[**Oracle 1.0.0 for Windows**](https://github.com/NoahIsARider/Oracle/releases/latest) is a portable zip with no installer. Unpack it and run `Oracle.exe`.
 
 The same game runs in a browser through the Vite dev server. See [Running it](#running-it).
 
