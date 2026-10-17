@@ -8,6 +8,7 @@ function createWindow() {
     minWidth: 1080,
     minHeight: 720,
     backgroundColor: '#111714',
+    icon: path.join(__dirname, '..', 'assets', 'oracle-icon.png'),
     autoHideMenuBar: true,
     title: 'Oracle — The Thread of Thebes',
     webPreferences: {

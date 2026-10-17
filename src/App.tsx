@@ -1,17 +1,26 @@
-import { useEffect, useMemo, useState } from 'react';
-import { cards, chapters, cardById, type RoleCard } from './data';
+import { useEffect, useMemo, useState, type FormEvent } from 'react';
+import { cards, chapters, cardById, minorArcana, type RoleCard } from './data';
 import {
-  beginReadingCircle, cardImage, cardNeedsTarget, cardRange, cellDistance, chooseReadingCard, createNewGame, endPlayerTurn, enterBoard, oracleEffect,
+  beginReadingCircle, cardImage, characterImage, cardNeedsTarget, cardRange, cellDistance, chooseReadingCard, createNewGame, endPlayerTurn, enterBoard, oracleEffect,
   playSelectedCard, recruitCard, resolveStoryChoice, returnToTitle, selectBoardCell,
   selectHandCard, type GameState,
 } from './game';
 
 const SAVE_KEY = 'oracle.the-thread-of-thebes.save.v1';
 const publicAsset = (path: string) => `./${path}`;
+type FortuneCard = { id: string; name: string; suit?: string; image: string; upright: string; reversed: string; reversedDraw: boolean };
 const loadSaved = (): GameState | null => {
   try {
     const raw = localStorage.getItem(SAVE_KEY);
-    return raw ? JSON.parse(raw) as GameState : null;
+    if (!raw) return null;
+    const saved = JSON.parse(raw) as GameState & { version?: number };
+    if (saved.version !== 2) {
+      if ((saved.version ?? 1) < 2 && saved.chapter >= 2) saved.chapter += 1;
+      saved.version = 2;
+    }
+    saved.rareBackground ??= null;
+    saved.rareSkins ??= {};
+    return saved;
   } catch {
     return null;
   }
@@ -24,17 +33,23 @@ function App() {
   const [archiveReturn, setArchiveReturn] = useState<'title' | 'pause' | 'battle'>('title');
   const [archiveCard, setArchiveCard] = useState<RoleCard | null>(null);
   const [showRules, setShowRules] = useState(false);
+  const [fortuneQuestion, setFortuneQuestion] = useState('');
+  const [fortuneDraw, setFortuneDraw] = useState<FortuneCard[] | null>(null);
 
   useEffect(() => {
+    // A reading at the oracle is not part of a run, so it must never overwrite
+    // the saved thread the title screen offers to continue.
+    if (game.screen === 'fortune') return;
     if (game.screen === 'title' && game.collection.length === 0) return;
     localStorage.setItem(SAVE_KEY, JSON.stringify(game));
     setHasSave(true);
   }, [game]);
 
   const chapter = chapters[Math.min(game.chapter, chapters.length - 1)];
-  const backdropPath = game.screen === 'title'
+  const standardBackdrop = `backgrounds/${['thebes-gate-board.png', 'corinth-board.png', 'knossos-labyrinth.png', 'delphi-inner-board.png'][Math.min(game.chapter, 3)]}`;
+  const backdropPath = game.screen === 'title' || game.screen === 'fortune'
     ? 'backgrounds/oracle-title-poster-mucha.png'
-    : `backgrounds/${['thebes-gate-board.png', 'corinth-board.png', 'delphi-inner-board.png'][Math.min(game.chapter, 2)]}`;
+    : game.rareBackground && ['scene', 'battle'].includes(game.screen) ? `backgrounds/${game.rareBackground}` : standardBackdrop;
   const enemyOracle = game.enemyOracle ? cardById(game.enemyOracle) : null;
   const oracle = oracleEffect(game.enemyOracle);
   const willWasHit = game.log.slice(0, 3).some((entry) => entry.includes('Will is lost'));
@@ -71,6 +86,16 @@ function App() {
 
   const update = (fn: (state: GameState) => GameState) => setGame((state) => fn(state));
   const begin = () => { setPaused(false); setGame(createNewGame()); };
+  const openFortune = () => { setFortuneQuestion(''); setFortuneDraw(null); setGame((state) => ({ ...state, screen: 'fortune' })); };
+  const drawFortune = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    if (!fortuneQuestion.trim() || fortuneDraw) return;
+    const major: FortuneCard[] = cards.map((card) => ({ id: card.id, name: card.name, image: cardImage(card.id), upright: card.fate, reversed: `${card.ability}: ${card.description}`, reversedDraw: false }));
+    const minors: FortuneCard[] = minorArcana.map((card) => ({ ...card, reversedDraw: false }));
+    const deck = [...major, ...minors].sort(() => Math.random() - 0.5).slice(0, 3).map((card) => ({ ...card, reversedDraw: Math.random() < 0.32 }));
+    setFortuneDraw(deck);
+  };
+  const askAnother = () => { setFortuneQuestion(''); setFortuneDraw(null); };
   const continueJourney = () => { const save = loadSaved(); if (save) setGame(save); };
   const openArchive = (from: 'title' | 'pause' | 'battle') => {
     setArchiveReturn(from);
@@ -98,10 +123,27 @@ function App() {
             <p className="title-subtitle">The Thread of Thebes</p>
             <div className="title-actions">
               <button className="primary-action" onClick={begin}><span>Enter the Sanctuary</span><b>↗</b></button>
+              <button className="quiet-action" onClick={openFortune}>Ask the Oracle <span>✦</span></button>
               {hasSave && <button className="quiet-action" onClick={continueJourney}>Continue the Thread <span>→</span></button>}
               <button className="quiet-action" onClick={() => openArchive('title')}>The Card Archive <span>⌘</span></button>
             </div>
           </div>
+        </section>
+      )}
+
+      {game.screen === 'fortune' && (
+        <section className="fortune-screen">
+          <button className="fortune-return" onClick={() => setGame(returnToTitle())}>← <span>RETURN</span></button>
+          <div className="fortune-heading"><small>THE DELPHIC ORACLE</small><h1>Ask the Cards</h1><p>Hold one question in mind. Three cards will answer: what shaped it, what meets you now, and what may come.</p></div>
+          <form className="fortune-question" onSubmit={drawFortune}>
+            <input value={fortuneQuestion} onChange={(event) => setFortuneQuestion(event.target.value)} maxLength={180} placeholder="What would you ask the Oracle?" disabled={Boolean(fortuneDraw)} aria-label="Your question" />
+            {!fortuneDraw && <button className="primary-action" disabled={!fortuneQuestion.trim()}><span>Cast the Reading</span><b>✦</b></button>}
+          </form>
+          {fortuneDraw && <>
+            <div className="fortune-spread">{fortuneDraw.map((card, index) => <article className="fortune-position" key={card.id}><small>{['THE PAST', 'THE PRESENT', 'THE POSSIBLE'][index]}</small><img className={card.reversedDraw ? 'card-reversed' : ''} src={card.image} alt={card.name} /><b>{card.name}</b><em>{card.reversedDraw ? 'REVERSED' : card.suit?.toUpperCase() ?? 'MAJOR ARCANA'}</em><p>{card.reversedDraw ? card.reversed : card.upright}</p></article>)}</div>
+            <div className="fortune-answer"><small>THE THREAD BETWEEN THEM</small><p className="fortune-question-echo">For “{fortuneQuestion}”</p><p>{fortuneDraw.map((card, index) => `${['The past', 'The present', 'The possible'][index]}: ${card.reversedDraw ? card.reversed : card.upright}`).join(' ')}</p><span>Let the cards offer a direction, not a sentence. Your choice remains your own.</span></div>
+            <button className="quiet-action fortune-again" onClick={askAnother}>Ask another question <span>↻</span></button>
+          </>}
         </section>
       )}
 
@@ -157,7 +199,7 @@ function App() {
 
           <div className="battle-main">
             <div className="board-column">
-              {enemyOracle && <div className="oracle-omen"><img src={cardImage(enemyOracle.id)} alt="" /><div><small>THE FOE'S ORACLE · {oracle.title.toUpperCase()}</small><b>{enemyOracle.name}</b><span>{oracle.description}</span></div></div>}
+              {enemyOracle && <div className="oracle-omen"><img src={characterImage(enemyOracle.id, game.rareSkins)} alt="" /><div><small>THE FOE'S ORACLE · {oracle.title.toUpperCase()}</small><b>{enemyOracle.name}</b><span>{oracle.description}</span></div></div>}
               <div className="board-caption"><b>ROUND {game.turn}</b><i>{game.actions} ACTIONS ✦</i></div>
               <div className="board-frame">
                 <div className="board-grid" role="grid" aria-label="Tactical board">
@@ -167,7 +209,7 @@ function App() {
                     const terrain = [6, 8, 11, 13].includes(cell) ? 'terrain-stone' : '';
                     return (
                       <button key={cell} role="gridcell" className={`board-cell ${terrain} ${ally ? 'has-ally' : ''} ${enemy ? 'has-enemy' : ''} ${ally && game.selectedAlly === ally.id ? 'selected-unit' : ''} ${enemy && game.selectedTarget === enemy.id ? 'targeted' : ''} ${game.moveMode && canMoveTo(cell) ? 'move-possible' : ''}`} onClick={() => update((state) => selectBoardCell(state, cell))}>
-                        {ally && <span className={`unit-token ally-token ${game.enemies.some((foe) => foe.hp > 0 && !foe.stunned && enemyTargetId(foe) === ally.id && enemyWillStrike(foe)) ? 'ally-threatened' : ''}`} title={cardById(ally.id).name}><img src={cardImage(ally.id)} alt={cardById(ally.id).name} /><b>{cardById(ally.id).name}</b>{game.enemies.some((foe) => foe.hp > 0 && !foe.stunned && enemyTargetId(foe) === ally.id) && <small>MARKED</small>}</span>}
+                        {ally && <span className={`unit-token ally-token ${game.enemies.some((foe) => foe.hp > 0 && !foe.stunned && enemyTargetId(foe) === ally.id && enemyWillStrike(foe)) ? 'ally-threatened' : ''}`} title={cardById(ally.id).name}><img src={characterImage(ally.id, game.rareSkins)} alt={cardById(ally.id).name} /><b>{cardById(ally.id).name}</b>{game.enemies.some((foe) => foe.hp > 0 && !foe.stunned && enemyTargetId(foe) === ally.id) && <small>MARKED</small>}</span>}
                         {enemy && <span className={`unit-token enemy-token ${enemyWillStrike(enemy) ? 'enemy-striking' : ''}`} title={`${enemy.name}: ${enemyIntent(enemy)}. ${enemy.hp} HP${enemy.ward > 0 ? `, ${enemy.ward} Ward` : ''}. Move the marked ally to dodge.`}><img src={publicAsset(`enemies/${enemy.id}.png`)} alt={enemy.name} /><b>{enemy.name}</b><small className="enemy-intent">{enemyIntent(enemy)}</small><em className="enemy-vitals">{enemy.hp} HP{enemy.ward > 0 ? ` · ${enemy.ward} WARD` : ''}</em></span>}
                         {!ally && !enemy && <span className="cell-mark">{terrain ? '✦' : ''}</span>}
                       </button>
@@ -186,7 +228,7 @@ function App() {
           <footer className="card-dock">
             <div className="bottom-hud">
               <div className="resource-strip" aria-label="Fate resources">
-                <div className="bottom-chapter"><small>ACT {['I', 'II', 'III'][game.chapter]}</small><b>{chapter.place}</b></div>
+                <div className="bottom-chapter"><small>ACT {['I', 'II', 'III', 'IV'][game.chapter]}</small><b>{chapter.place}</b></div>
                 <div className={`resource-chip will-chip ${willWasHit ? 'will-lost' : ''}`} title="Will"><img src={publicAsset('icons/will.png')} alt="Will" /><b>{game.will}<small>/{game.maxWill}</small></b></div>
                 <div className="resource-chip" title="Thread"><img src={publicAsset('icons/thread.png')} alt="Thread" /><b>{game.thread}</b></div>
                 <div className="resource-chip" title="Favor"><img src={publicAsset('icons/favor.png')} alt="Favor" /><b>{game.favor}</b></div>
@@ -200,7 +242,7 @@ function App() {
                   {game.hand.map((id) => {
                     const card = cardById(id);
                     return <button key={id} className={`hand-card ${game.selectedCard === id ? 'hand-card-selected' : ''}`} onClick={() => update((state) => selectHandCard(state, id))} title={`${card.ability}: ${card.description}`}>
-                      <img src={cardImage(id)} alt={`${card.name} tarot card`} />
+                      <img src={characterImage(id, game.rareSkins)} alt={`${card.name} tarot card`} />
                       <span className="hand-card-type">{card.ability}</span>
                     </button>;
                   })}
@@ -232,9 +274,9 @@ function App() {
 
       {game.screen === 'choice' && (
         <section className="story-choice-screen">
-          <div className="choice-art"><img src={cardImage(game.chapter === 0 ? 'oedipus' : game.chapter === 1 ? 'medea' : 'persephone')} alt="" /></div>
+          <div className="choice-art"><img src={cardImage(['oedipus', 'medea', 'hades', 'persephone'][Math.min(game.chapter, chapters.length - 1)])} alt="" /></div>
           <div className="choice-copy">
-            <div className="screen-kicker">THE FIELD IS QUIET <i>✦</i> ACT {['I', 'II', 'III'][game.chapter]} COMPLETE</div>
+            <div className="screen-kicker">THE FIELD IS QUIET <i>✦</i> ACT {['I', 'II', 'III', 'IV'][game.chapter]} COMPLETE</div>
             <h1>{chapter.choiceTitle}</h1>
             <p>{chapter.opening}</p>
             <div className="choice-options">{storyChoices.map((choice) => <button key={choice.kind} className="choice-option" onClick={() => update((state) => resolveStoryChoice(state, choice.kind as 'mercy' | 'defiance' | 'reckoning' | 'rewrite' | 'accept'))}><span className="choice-sigil">✦</span><span><b>{choice.title}</b><small>{choice.text}</small></span><i>→</i></button>)}</div>
@@ -270,11 +312,13 @@ function App() {
       {game.screen === 'archive' && (
         <section className="archive-screen">
           <div className="archive-heading"><div><div className="screen-kicker">THE ILLUSTRATED DECK <i>✦</i> 25 CHARACTERS</div><h1>The Card Archive</h1><p>Gods and tragic lives, each bound to a different answer.</p></div><button className="back-button" onClick={closeArchive}>← <span>RETURN</span></button></div>
-          <div className="archive-grid">{cards.map((card) => <button key={card.id} className="archive-card" onClick={() => setArchiveCard(card)}><img src={cardImage(card.id)} alt={card.name} /><span>{card.name}</span></button>)}</div>
+          <div className="archive-grid">{cards.map((card) => <button key={card.id} className="archive-card" onClick={() => setArchiveCard(card)}><img src={characterImage(card.id, game.rareSkins)} alt={card.name} /><span>{card.name}</span></button>)}</div>
+          <div className="minor-archive-heading"><small>THE MINOR ARCANA</small><span>Six illustrated signs of the everyday: will, bond, truth and keeping.</span></div>
+          <div className="archive-grid minor-archive-grid">{minorArcana.map((card) => <article key={card.id} className="archive-card minor-archive-card"><img src={card.image} alt={card.name} /><span>{card.name}</span></article>)}</div>
         </section>
       )}
 
-      {archiveCard && game.screen === 'archive' && <div className="modal-backdrop" onClick={() => setArchiveCard(null)}><div className="card-detail-modal" onClick={(event) => event.stopPropagation()}><img src={cardImage(archiveCard.id)} alt={archiveCard.name} /><div className="card-detail-copy"><div className="screen-kicker">CHARACTER ARCANA</div><h2>{archiveCard.name}</h2><span>{archiveCard.epithet}</span><blockquote>“{archiveCard.fate}”</blockquote><div className="detail-ability"><small>{archiveCard.ability.toUpperCase()}</small><p>{archiveCard.description}</p></div><button className="quiet-action" onClick={() => setArchiveCard(null)}>Return to the deck <span>→</span></button></div><button className="close-modal" onClick={() => setArchiveCard(null)}>×</button></div></div>}
+      {archiveCard && game.screen === 'archive' && <div className="modal-backdrop" onClick={() => setArchiveCard(null)}><div className="card-detail-modal" onClick={(event) => event.stopPropagation()}><img src={characterImage(archiveCard.id, game.rareSkins)} alt={archiveCard.name} /><div className="card-detail-copy"><div className="screen-kicker">CHARACTER ARCANA</div><h2>{archiveCard.name}</h2><span>{archiveCard.epithet}</span><blockquote>“{archiveCard.fate}”</blockquote><div className="detail-ability"><small>{archiveCard.ability.toUpperCase()}</small><p>{archiveCard.description}</p></div><button className="quiet-action" onClick={() => setArchiveCard(null)}>Return to the deck <span>→</span></button></div><button className="close-modal" onClick={() => setArchiveCard(null)}>×</button></div></div>}
 
       {paused && game.screen !== 'archive' && (
         <div className="modal-backdrop pause-backdrop"><div className="pause-modal"><p>The moment holds. Your progress is saved between turns.</p><button className="primary-action" onClick={() => setPaused(false)}><span>Return to the Board</span><b>→</b></button><button className="quiet-action" onClick={() => setShowRules(true)}>Read the rules <span>?</span></button><button className="quiet-action" onClick={() => openArchive('pause')}>Open the card archive <span>⌘</span></button><button className="quiet-action return-title" onClick={() => { setGame(returnToTitle()); setPaused(false); }}>Return to title <span>↗</span></button></div></div>

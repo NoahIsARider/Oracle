@@ -9,7 +9,7 @@ dist/
 
 # packaging output
 release/
-release-omen/
+release-*/
 electron-runtime/
 
 # art regeneration output (the sheets it is cropped from are tracked)

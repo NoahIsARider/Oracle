@@ -1,6 +1,6 @@
 {
   "name": "oracle-fate-card-game",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "private": true,
   "description": "Oracle — a mythic turn-based tarot board game",
   "main": "electron/main.cjs",
@@ -34,7 +34,7 @@
     "appId": "com.oracle.fatecardgame",
     "productName": "Oracle",
     "directories": { "output": "release" },
-    "files": ["dist/**/*", "electron/**/*", "package.json"],
-    "win": { "target": ["portable"] }
+    "files": ["dist/**/*", "electron/**/*", "assets/oracle-icon.png", "package.json"],
+    "win": { "icon": "assets/oracle.ico", "target": ["portable"] }
   }
 }

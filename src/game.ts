@@ -1,6 +1,6 @@
 import { cardById, cards, chapters, type RoleCard } from './data';
 
-export type Screen = 'title' | 'reading' | 'scene' | 'battle' | 'choice' | 'recruit' | 'ending' | 'archive';
+export type Screen = 'title' | 'reading' | 'scene' | 'battle' | 'choice' | 'recruit' | 'ending' | 'archive' | 'fortune';
 export type DraftStep = 'destiny' | 'companions';
 
 export interface BoardEnemy {
@@ -23,6 +23,7 @@ export interface BoardAlly {
 }
 
 export interface GameState {
+  version: number;
   screen: Screen;
   chapter: number;
   spread: string[];
@@ -57,6 +58,8 @@ export interface GameState {
   log: string[];
   endingTitle: string;
   endingText: string;
+  rareBackground: string | null;
+  rareSkins: Record<string, string>;
 }
 
 const shuffled = <T,>(items: T[]) => [...items].sort(() => Math.random() - 0.5);
@@ -70,7 +73,9 @@ function nearestAlly(cell: number, allies: BoardAlly[]): BoardAlly | undefined {
 }
 
 export function createNewGame(): GameState {
+  const rareRoll = Math.random();
   return {
+    version: 2,
     screen: 'reading', chapter: 0, spread: shuffled(cards.map((card) => card.id)).slice(0, 6), revealed: [],
     enemyOracle: shuffled(cards.map((card) => card.id))[0],
     draftStep: 'destiny', destiny: null, chosen: [], collection: [], recruitOptions: [],
@@ -79,6 +84,8 @@ export function createNewGame(): GameState {
     will: 14, maxWill: 14, ward: 0, thread: 2, favor: 0, burden: 0,
     rewrites: 0, acceptances: 0, compassion: 0, trust: 0,
     log: ['The cards wait beneath the Delphic moon.'], endingTitle: '', endingText: '',
+    rareBackground: rareRoll < 0.035 ? 'rare-cyber-arcade.png' : rareRoll < 0.07 ? 'rare-ash-sanctuary.png' : null,
+    rareSkins: {},
   };
 }
 
@@ -101,7 +108,21 @@ function drawIntoHand(state: GameState, count = 4): GameState {
 export function beginReadingCircle(state: GameState): GameState {
   if (state.chosen.length !== 3 || !state.destiny) return state;
   const collection = [...state.chosen];
-  return beginChapter({ ...state, collection }, 0, 'The reading binds three lives to yours. Their names will change the shape of the board.');
+  const rareSkins = { ...state.rareSkins };
+  for (const id of collection) {
+    const skin = rareSkinFor(id);
+    if (skin) rareSkins[id] = skin;
+  }
+  return beginChapter({ ...state, collection, rareSkins }, 0, 'The reading binds three lives to yours. Their names will change the shape of the board.');
+}
+
+function rareSkinFor(id: string): string | null {
+  if (Math.random() > 0.06) return null;
+  const skin: Record<string, string> = {
+    apollo: 'apollo-cyberpunk.png', athena: 'athena-wasteland.png', hades: 'hades-cyberpunk.png',
+    medea: 'medea-wasteland.png', hermes: 'hermes-cyberpunk.png', cassandra: 'cassandra-wasteland.png',
+  };
+  return skin[id] ?? null;
 }
 
 function beginChapter(state: GameState, chapterIndex: number, message: string): GameState {
@@ -440,7 +461,7 @@ export function resolveStoryChoice(state: GameState, choice: 'mercy' | 'defiance
     next = { ...next, acceptances: next.acceptances + 2, favor: next.favor + 2 };
   }
 
-  if (state.chapter === 2) {
+  if (state.chapter === chapters.length - 1) {
     const ending = chooseEnding(next);
     return { ...next, screen: 'ending', endingTitle: ending.title, endingText: ending.text, log: [ending.title, ...next.log].slice(0, 5) };
   }
@@ -455,8 +476,10 @@ export function resolveStoryChoice(state: GameState, choice: 'mercy' | 'defiance
 export function recruitCard(state: GameState, id: string): GameState {
   if (state.screen !== 'recruit' || !state.recruitOptions.includes(id)) return state;
   const collection = [...state.collection, id];
+  const skin = rareSkinFor(id);
+  const rareSkins = skin ? { ...state.rareSkins, [id]: skin } : state.rareSkins;
   const nextChapter = state.chapter + 1;
-  return beginChapter({ ...state, collection, recruitOptions: [] }, nextChapter, `${cardById(id).name} joins your reading. The next scene takes shape.`);
+  return beginChapter({ ...state, collection, rareSkins, recruitOptions: [] }, nextChapter, `${cardById(id).name} joins your reading. The next scene takes shape.`);
 }
 
 function chooseEnding(state: GameState): { title: string; text: string } {
@@ -493,6 +516,10 @@ export function returnToTitle(): GameState {
 
 export function cardImage(id: string): string {
   return `./cards/${id}.png`;
+}
+
+export function characterImage(id: string, rareSkins: Record<string, string> = {}): string {
+  return rareSkins[id] ? `./skins/${rareSkins[id]}` : cardImage(id);
 }
 
 export function cardName(id: string): string {

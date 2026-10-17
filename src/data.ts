@@ -39,6 +39,24 @@ export const cards: RoleCard[] = [
   { id: 'orpheus', name: 'Orpheus', epithet: 'The Second Song', fate: 'A song can lead you through the dark; looking back is still a choice.', ability: 'Song Below', description: 'Deal 2 damage, recover a discarded card, and gain 1 Favor.', effect: 'insight', power: 2 },
 ];
 
+export interface MinorArcana {
+  id: string;
+  name: string;
+  suit: 'Wands' | 'Cups' | 'Swords' | 'Pentacles';
+  image: string;
+  upright: string;
+  reversed: string;
+}
+
+export const minorArcana: MinorArcana[] = [
+  { id: 'ace-wands', name: 'Ace of Wands', suit: 'Wands', image: './minor/ace-wands.png', upright: 'A first spark asks for courage and a beginning.', reversed: 'The flame is real, but its direction is not yet clear.' },
+  { id: 'two-cups', name: 'Two of Cups', suit: 'Cups', image: './minor/two-cups.png', upright: 'Trust grows through a mutual and honest exchange.', reversed: 'A bond needs balance before it can be relied upon.' },
+  { id: 'three-swords', name: 'Three of Swords', suit: 'Swords', image: './minor/three-swords.png', upright: 'A difficult truth can open the way to healing.', reversed: 'Grief is loosening; do not mistake tenderness for weakness.' },
+  { id: 'four-pentacles', name: 'Four of Pentacles', suit: 'Pentacles', image: './minor/four-pentacles.png', upright: 'Protect what matters, but leave room for it to grow.', reversed: 'A guarded hand may be holding too tightly.' },
+  { id: 'six-cups', name: 'Six of Cups', suit: 'Cups', image: './minor/six-cups.png', upright: 'Memory offers comfort when it is welcomed, not obeyed.', reversed: 'The past is ready to be seen from a new distance.' },
+  { id: 'seven-wands', name: 'Seven of Wands', suit: 'Wands', image: './minor/seven-wands.png', upright: 'Stand by the choice you have made; your ground can hold.', reversed: 'You need not defend every battle to keep your conviction.' },
+];
+
 export const chapters = [
   {
     title: 'The Unburied',
@@ -72,6 +90,23 @@ export const chapters = [
     choices: [
       { title: 'Give her a road out', text: 'No promise is worth a life taken in its name.', kind: 'mercy' },
       { title: 'Let the oath answer itself', text: 'A broken vow must be seen in the light it made.', kind: 'reckoning' },
+    ],
+  },
+  {
+    title: 'The Labyrinth’s Echo',
+    place: 'KNOSSOS · THE BRONZE MAZE',
+    subtitle: 'A monster is what remains when a name is taken away.',
+    opening: 'Beneath the palace at Knossos, the old maze opens again. The Minotaur guards a secret the court buried with him; a bronze sentinel keeps the way sealed. Ariadne’s thread trembles in your hand.',
+    objective: 'Enter the maze, face what was made monstrous, and choose what may leave it.',
+    omen: 'The Minotaur hunts the nearest ally. The Sentinel protects the maze and punishes anyone who approaches.',
+    enemies: [
+      { id: 'labyrinth-minotaur', name: 'The Minotaur', hp: 20, damage: 4, cell: 2, intent: 'ADVANCE · 4' },
+      { id: 'labyrinth-sentinel', name: 'Bronze Sentinel', hp: 15, damage: 3, cell: 4, intent: 'ADVANCE · 3' },
+    ],
+    choiceTitle: 'What name will you give the monster?',
+    choices: [
+      { title: 'Open the gate', text: 'Let the one called monster choose a life beyond the maze.', kind: 'mercy' },
+      { title: 'Carry the truth into daylight', text: 'The court must answer for the labyrinth it built.', kind: 'defiance' },
     ],
   },
   {

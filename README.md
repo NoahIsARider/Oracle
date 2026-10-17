@@ -2,17 +2,22 @@
 
 **A turn-based tarot board game about fate, will, and the cost of choosing.**
 
-Oracle is a small complete game. You draw a Fate card, pick two companions, and walk them through three acts of Greek tragedy. Every act ends with a question the gods will not answer for you.
+Oracle is a small complete game. You draw a Fate card, pick two companions, and walk them through four acts of Greek tragedy. Every act ends with a question the gods will not answer for you.
 
 <img src="docs/screens/title.png" alt="Oracle title screen" width="100%">
 
 ## Download
 
-Windows portable build, no installer.
-
-[**Oracle 1.0.0 for Windows**](https://github.com/NoahIsARider/Oracle/releases/latest) is a portable zip with no installer. Unpack it and run `Oracle.exe`.
+[**Oracle 2.0.0 for Windows**](https://github.com/NoahIsARider/Oracle/releases/latest) is one portable executable. Download it, run it, keep it anywhere. No installer and no account.
 
 The same game runs in a browser through the Vite dev server. See [Running it](#running-it).
+
+## What 2.0 adds
+
+- **A fourth act.** The Labyrinth's Echo takes the run to Knossos, under the bronze maze, where the Minotaur guards what the court buried. Four acts now, each with its own board, enemies and story choice.
+- **Ask the Oracle.** A three card reading outside the run. Hold one question, draw the past, the present and the possible, and read the answer across all three.
+- **The minor arcana.** Six illustrated signs of the everyday join the archive and the oracle deck.
+- **Rare rooms and rare skins.** Some runs open in a room that does not belong to the act, and some characters arrive in a skin from another century.
 
 ## How a reading works
 
@@ -45,17 +50,24 @@ The pause menu keeps the run between turns, and the full rules sit one key away 
 | --- | --- |
 | <img src="docs/screens/pause.png" alt="Pause menu" width="100%"> | <img src="docs/screens/rules.png" alt="Rules modal" width="100%"> |
 
-## Three acts, three boards
+## Four acts, four boards
 
 | Act | Place | Question |
 | --- | --- | --- |
 | I | [Thebes, Eastern Gate](docs/screens/battle-act1.png) | What shall the city remember? |
 | II | [Corinth, the Bridal Hall](docs/screens/battle-act2.png) | What will you offer Medea? |
-| III | [Delphi, the Inner Sanctuary](docs/screens/battle-act3.png) | How will you answer the Fates? |
+| III | [Knossos, the Bronze Maze](docs/screens/battle-act3.png) | What name will you give the monster? |
+| IV | [Delphi, the Inner Sanctuary](docs/screens/battle-act4.png) | How will you answer the Fates? |
 
 <img src="docs/screens/battle-act2.png" alt="Act II, the bridal hall at Corinth" width="100%">
 
-Each act ends with a story choice that changes your standing in the next one, and between acts a new character card surfaces and joins the circle. The choices compound. A first reading and a third reading do not end in the same place.
+<img src="docs/screens/battle-act3.png" alt="Act III, under the bronze maze at Knossos" width="100%">
+
+<img src="docs/screens/battle-act4.png" alt="Act IV, the inner sanctuary at Delphi" width="100%">
+
+Each act ends with a story choice that changes your standing in the next one, and between acts a new character card surfaces and joins the circle. The choices compound. A first reading and a fourth reading do not end in the same place.
+
+<img src="docs/screens/choice-act3.png" alt="Naming the monster at Knossos" width="100%">
 
 <img src="docs/screens/story-choice.png" alt="Story choice after Act I" width="100%">
 
@@ -67,15 +79,27 @@ Each act ends with a story choice that changes your standing in the next one, an
 
 The epilogue keeps a ledger of what you rewrote, what you accepted, how much Favor you won and how much Burden you carried out of the sanctuary.
 
+## Ask the Oracle
+
+<img src="docs/screens/fortune-reading.png" alt="A three card reading at the oracle" width="100%">
+
+A reading that never touches your run. Hold one question in mind, draw three cards from the whole deck, major and minor, and get the past, the present and the possible. A card can arrive reversed, and a reversed card answers with its other voice.
+
 ## The deck
 
-Twenty five character cards, drawn from epic and tragedy rather than from a generic fantasy cast. Gods who govern things, and mortals who were governed by them.
+Twenty five character cards, drawn from epic and tragedy rather than from a generic fantasy cast, plus six minor arcana signs. Gods who govern things, mortals who were governed by them, and the small cards that speak for the everyday.
 
 <img src="docs/screens/deck.png" alt="The complete card archive" width="100%">
 
 <img src="docs/screens/card-detail.png" alt="Card detail view" width="100%">
 
 Open the archive from the title screen, the pause menu or the epilogue and read every card in the deck.
+
+## Rare runs
+
+<img src="docs/screens/rare-cyber-arcade.png" alt="A rare room, Athens lit by a later century" width="100%">
+
+A run can open in a room that does not belong to its act, and a character can arrive in a skin from another century. Both are rolled once when the reading begins, so a rare run stays rare for all four acts.
 
 ## Running it
 
@@ -89,7 +113,7 @@ pnpm build          # type check and bundle to dist/
 pnpm package:win    # portable Windows build into release/
 ```
 
-The game keeps its own save in `localStorage`, so a run survives a reload and the title screen offers **Continue the Thread**.
+The game keeps its own save in `localStorage`, so a run survives a reload and the title screen offers **Continue the Thread**. A reading at the oracle is not part of a run and never overwrites that save.
 
 ## How it is built
 
@@ -100,24 +124,26 @@ The game keeps its own save in `localStorage`, so a run survives a reload and th
 
 ```
 src/
-  data.ts       25 character cards and the three act scripts
+  data.ts       25 character cards, 6 minor arcana, four act scripts
   game.ts       the whole rules engine as pure state transitions
-  App.tsx       every screen: title, draft, board, archive, epilogue
+  App.tsx       every screen: title, oracle reading, draft, board, archive, epilogue
   styles.css    the manuscript look, all of it
 public/
   cards/        the illustrated deck and the card back
-  enemies/      act enemies
-  backgrounds/  three painted boards and the title poster
+  minor/        the six minor arcana cards
+  skins/        rare character skins
+  enemies/      act enemies, including the Knossos set
+  backgrounds/  four painted boards, the title poster and the rare rooms
   icons/        Will, Thread, Favor, Burden
 electron/       main and preload for the portable build
-scripts/        art pipeline that crops the generated sheets into single cards
+scripts/        art pipeline that crops generated sheets into single cards
 assets/         source sheets, frames, character plates and design studies
 docs/screens/   screenshots used in this README
 ```
 
 ## Art pipeline
 
-The illustrations were generated as Mucha style cast sheets, then cut into single cards by `scripts/build_oracle_cards.py`. The script crops the grid, keeps the parchment edge, sets the card size to 512 by 1152 and writes `assets/cards/card-manifest.json`, which the app and the archive both read. Regenerated crops land in `assets/cards/variants/` and are not tracked.
+The illustrations were generated as Mucha style cast sheets, then cut into single cards by `scripts/build_oracle_cards.py`. The script crops the grid, keeps the parchment edge, sets the card size to 512 by 1152 and writes `assets/cards/card-manifest.json`, which the app and the archive both read. `scripts/import_generated_assets.py` does the same work for the newer sets, the minor arcana, the rare skins and the Knossos enemies. Regenerated crops land in `assets/cards/variants/` and are not tracked.
 
 ## License
 

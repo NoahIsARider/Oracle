@@ -43,6 +43,81 @@ button:focus-visible { outline: 2px solid var(--gold-bright); outline-offset: 3p
 .quiet-action:hover { color: #fff4d5; }
 .quiet-action span { margin-left: 5px; color: var(--gold-bright); }
 .title-footnote { margin-top: 25px; color: #ddcda9; font: 700 11px 'Alegreya', Georgia, serif; letter-spacing: .14em; text-shadow: 0 2px 7px #050806; }
+
+/* A private three-card reading, composed like a quiet scene in the game. */
+.screen-fortune .world-backdrop { background-position: center; filter: brightness(.62) saturate(.72); }
+.screen-fortune .world-vignette { background: radial-gradient(ellipse at center, rgba(8,13,10,.48), rgba(5,9,7,.82) 78%); }
+.fortune-screen { position: relative; z-index: 1; width: 100%; height: 100%; overflow-y: auto; padding: 5vh 5vw 4vh; color: #f0e3c5; text-align: center; }
+.fortune-return { position: absolute; top: 28px; left: 4vw; padding: 8px 12px; border: 1px solid rgba(222,190,122,.5); color: #efdfba; background: rgba(9,14,11,.45); font: 800 14px 'Cinzel Decorative', Georgia, serif; cursor: pointer; }
+.fortune-return span { margin-left: 7px; }
+.fortune-heading { max-width: 690px; margin: 3vh auto 24px; }
+.fortune-heading small, .fortune-answer small { color: #d6b76e; font: 800 13px 'Cinzel Decorative', Georgia, serif; letter-spacing: .17em; }
+.fortune-heading h1 { margin: 10px 0 12px; color: #f5e6c6; font: 900 clamp(38px, 4vw, 58px)/1.05 'Cinzel Decorative', Georgia, serif; text-shadow: 0 4px 18px #080b08; }
+.fortune-heading p { margin: 0; color: #e2d4b6; font: italic 700 20px/1.35 'Alegreya', Georgia, serif; }
+.fortune-question { display: flex; justify-content: center; gap: 12px; width: min(720px, 92%); margin: 0 auto 26px; }
+.fortune-question input { flex: 1; min-width: 0; height: 52px; padding: 0 16px; border: 1px solid rgba(224,191,120,.65); color: #f4e7cb; background: rgba(12,17,14,.78); font: 700 18px 'Alegreya', Georgia, serif; outline: none; }
+.fortune-question input:focus { border-color: #f2d58c; box-shadow: 0 0 16px rgba(217,176,95,.2); }
+.fortune-question input::placeholder { color: #bcb092; }
+.fortune-question .primary-action { flex: 0 0 auto; min-width: 185px; }
+.fortune-spread { display: grid; grid-template-columns: repeat(3, minmax(150px, 220px)); justify-content: center; gap: clamp(18px, 4vw, 56px); margin: 2vh auto 20px; }
+.fortune-position { display: flex; flex-direction: column; align-items: center; min-width: 0; }
+.fortune-position > small { margin-bottom: 9px; color: #e3c77f; font: 800 12px 'Cinzel Decorative', Georgia, serif; letter-spacing: .12em; }
+.fortune-position img { width: min(100%, 190px); aspect-ratio: 4 / 9; object-fit: cover; border: 2px solid #d7bd80; box-shadow: 0 14px 32px rgba(0,0,0,.65); }
+.fortune-position img.card-reversed { transform: rotate(180deg); }
+.fortune-position b { margin-top: 9px; color: #f3e3bf; font: 900 18px 'Cinzel Decorative', Georgia, serif; }
+.fortune-position em { margin-top: 3px; color: #d1ae67; font: 800 10px 'Cinzel Decorative', Georgia, serif; letter-spacing: .12em; }
+.fortune-position p { max-width: 220px; margin: 7px 0 0; color: #e3d7bd; font: 700 15px/1.25 'Alegreya', Georgia, serif; }
+.fortune-answer { max-width: 720px; margin: 22px auto 4px; padding: 15px 24px 17px; border-top: 1px solid rgba(215,183,112,.5); border-bottom: 1px solid rgba(215,183,112,.5); background: rgba(7,12,9,.35); }
+.fortune-answer p { margin: 8px 0; color: #f0e1c0; font: italic 700 18px/1.35 'Alegreya', Georgia, serif; }
+.fortune-answer .fortune-question-echo { color: #d5b872; font: 800 15px 'Cinzel Decorative', Georgia, serif; }
+.fortune-answer span { color: #c9ba9a; font: 700 14px 'Alegreya', Georgia, serif; }
+.fortune-again { justify-content: center; margin: 8px auto; }
+/* Once the cards are drawn the answer sits under the spread, so the whole
+   column compresses to keep the reading inside one window without scrolling. */
+.fortune-screen:has(.fortune-spread) { padding-top: 2.4vh; padding-bottom: 1.4vh; }
+.fortune-screen:has(.fortune-spread) .fortune-heading { margin: 0 auto 12px; }
+.fortune-screen:has(.fortune-spread) .fortune-heading h1 { margin: 6px 0 8px; font-size: clamp(30px, 3.2vw, 44px); }
+.fortune-screen:has(.fortune-spread) .fortune-heading p { font-size: 16px; }
+.fortune-screen:has(.fortune-spread) .fortune-question { margin-bottom: 14px; }
+.fortune-screen:has(.fortune-spread) .fortune-spread { margin: 0 auto 12px; }
+.fortune-screen:has(.fortune-spread) .fortune-position img { width: min(100%, 150px); }
+.fortune-screen:has(.fortune-spread) .fortune-position p { font-size: 13px; }
+.fortune-screen:has(.fortune-spread) .fortune-answer { margin-top: 10px; padding-block: 10px; }
+/* Shorter windows trade card size for keeping the whole reading on screen. */
+@media (max-height: 880px) {
+  .fortune-screen:has(.fortune-spread) .fortune-position img { width: min(100%, 112px); }
+  .fortune-screen:has(.fortune-spread) .fortune-position p { font-size: 12.5px; }
+  .fortune-screen:has(.fortune-spread) .fortune-heading p { font-size: 14px; }
+  .fortune-screen:has(.fortune-spread) .fortune-heading { margin-bottom: 8px; }
+  .fortune-screen:has(.fortune-spread) .fortune-question { margin-bottom: 10px; }
+  .fortune-screen:has(.fortune-spread) .fortune-answer { padding-block: 8px; }
+  .fortune-screen:has(.fortune-spread) .fortune-answer p { font-size: 16px; }
+  .fortune-screen:has(.fortune-spread) .fortune-again { margin: 2px auto 0; }
+}
+@media (max-height: 800px) {
+  .fortune-screen { padding-top: 3vh; }
+  .fortune-heading { margin: 1vh auto 15px; }
+  .fortune-heading p { font-size: 17px; }
+  .fortune-position img { width: min(100%, 155px); }
+  .fortune-position p { font-size: 13px; }
+  .fortune-answer { margin-top: 12px; padding-block: 10px; }
+}
+.minor-archive-heading { display: flex; align-items: baseline; gap: 15px; width: min(1180px, 100%); margin: 12px auto 8px; color: #e8d8b4; }
+.minor-archive-heading small { color: #dab96f; font: 800 12px 'Cinzel Decorative', Georgia, serif; letter-spacing: .13em; }
+.minor-archive-heading span { font: italic 700 15px 'Alegreya', Georgia, serif; }
+.minor-archive-card { cursor: default; }
+.minor-archive-grid { grid-template-columns: repeat(6, minmax(0, 1fr)); margin-bottom: 20px; }
+@media (max-width: 760px) {
+  .fortune-screen { padding-inline: 4vw; }
+  .fortune-return { top: 10px; left: 10px; }
+  .fortune-heading { margin-top: 55px; }
+  .fortune-question { flex-direction: column; }
+  .fortune-question .primary-action { min-height: 48px; }
+  .fortune-spread { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+  .fortune-position img { width: 100%; }
+  .fortune-position b { font-size: 13px; }
+  .fortune-position p { font-size: 12px; }
+}
 .version-mark { position: absolute; right: 28px; bottom: 22px; color: rgba(241,225,192,.75); font: 700 12px 'Alegreya', Georgia, serif; letter-spacing: .12em; }
 
 /* The first reading is a card draft, presented as a ritual spread. */
