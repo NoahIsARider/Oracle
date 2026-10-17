@@ -1,0 +1,135 @@
+{
+  "title": "Oracle Character Tarot",
+  "card_count": 25,
+  "card_size": {
+    "width": 512,
+    "height": 1152
+  },
+  "cards": [
+    {
+      "id": "apollo",
+      "name": "Apollo",
+      "file": "individual/apollo.png"
+    },
+    {
+      "id": "athena",
+      "name": "Athena",
+      "file": "individual/athena.png"
+    },
+    {
+      "id": "aphrodite",
+      "name": "Aphrodite",
+      "file": "individual/aphrodite.png"
+    },
+    {
+      "id": "hades",
+      "name": "Hades",
+      "file": "individual/hades.png"
+    },
+    {
+      "id": "oedipus",
+      "name": "Oedipus",
+      "file": "individual/oedipus.png"
+    },
+    {
+      "id": "medea",
+      "name": "Medea",
+      "file": "individual/medea.png"
+    },
+    {
+      "id": "persephone",
+      "name": "Persephone",
+      "file": "individual/persephone.png"
+    },
+    {
+      "id": "zeus",
+      "name": "Zeus",
+      "file": "individual/zeus.png"
+    },
+    {
+      "id": "poseidon",
+      "name": "Poseidon",
+      "file": "individual/poseidon.png"
+    },
+    {
+      "id": "artemis",
+      "name": "Artemis",
+      "file": "individual/artemis.png"
+    },
+    {
+      "id": "dionysus",
+      "name": "Dionysus",
+      "file": "individual/dionysus.png"
+    },
+    {
+      "id": "ajax",
+      "name": "Ajax",
+      "file": "individual/ajax.png"
+    },
+    {
+      "id": "cassandra",
+      "name": "Cassandra",
+      "file": "individual/cassandra.png"
+    },
+    {
+      "id": "demeter",
+      "name": "Demeter",
+      "file": "individual/demeter.png"
+    },
+    {
+      "id": "hermes",
+      "name": "Hermes",
+      "file": "individual/hermes.png"
+    },
+    {
+      "id": "ares",
+      "name": "Ares",
+      "file": "individual/ares.png"
+    },
+    {
+      "id": "hestia",
+      "name": "Hestia",
+      "file": "individual/hestia.png"
+    },
+    {
+      "id": "odysseus",
+      "name": "Odysseus",
+      "file": "individual/odysseus.png"
+    },
+    {
+      "id": "penelope",
+      "name": "Penelope",
+      "file": "individual/penelope.png"
+    },
+    {
+      "id": "hera",
+      "name": "Hera",
+      "file": "individual/hera.png"
+    },
+    {
+      "id": "hephaestus",
+      "name": "Hephaestus",
+      "file": "individual/hephaestus.png"
+    },
+    {
+      "id": "heracles",
+      "name": "Heracles",
+      "file": "individual/heracles.png"
+    },
+    {
+      "id": "iphigenia",
+      "name": "Iphigenia",
+      "file": "individual/iphigenia.png"
+    },
+    {
+      "id": "electra",
+      "name": "Electra",
+      "file": "individual/electra.png"
+    },
+    {
+      "id": "orpheus",
+      "name": "Orpheus",
+      "file": "individual/orpheus.png"
+    }
+  ]
+}
