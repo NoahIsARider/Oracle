@@ -307,7 +307,7 @@ export function playSelectedCard(state: GameState): GameState {
         const recoverIndex = discard.findIndex((id) => id !== card.id);
         if (recoverIndex >= 0) hand.push(discard.splice(recoverIndex, 1)[0]);
       }
-      if (card.id === 'hermes' || card.id === 'apollo' || card.id === 'dionysus' || card.id === 'orpheus') {
+      if (card.id === 'hermes' || card.id === 'apollo' || card.id === 'dionysus' || card.id === 'orpheus' || card.id === 'hecate' || card.id === 'ariadne') {
         const drawCount = card.id === 'hermes' ? 2 : 1;
         for (let i = 0; i < drawCount; i += 1) {
           if (drawPile.length === 0 && discard.length > 0) {

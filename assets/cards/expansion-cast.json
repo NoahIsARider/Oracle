@@ -1,0 +1,390 @@
+{
+  "title": "Oracle cast expansion",
+  "note": "Twenty four new character cards for the tarot deck. Four cast sheets, six cards each, generated in the same Mucha style as oracle-cast-01..04. Names are printed by scripts/import_expansion_cards.py, never by the image model.",
+  "cards": [
+    {
+      "id": "zagreus",
+      "sheet": "oracle-cast-05.png",
+      "slot": [
+        0,
+        0
+      ],
+      "name": "Zagreus",
+      "epithet": "The First Blood",
+      "fate": "A son may inherit a kingdom without inheriting its verdict.",
+      "ability": "Blood of the House",
+      "description": "Deal 3 damage to a chosen foe. Every ending sends him back to the fight.",
+      "effect": "strike",
+      "power": 3,
+      "art": "a young man with short black hair and a crimson shoulder mantle, bronze sword lowered, embers under his sandals, pomegranate branches behind him, red and gold palette"
+    },
+    {
+      "id": "nyx",
+      "sheet": "oracle-cast-05.png",
+      "slot": [
+        0,
+        1
+      ],
+      "name": "Nyx",
+      "epithet": "The Night Made Mother",
+      "fate": "The dark that shelters you is the same dark that hides your enemy.",
+      "ability": "Cloak of Night",
+      "description": "Raise a ward that absorbs 5 damage from the next enemy turn.",
+      "effect": "ward",
+      "power": 5,
+      "art": "a tall veiled woman in indigo robes scattered with small stars, great dusk-coloured wings folded behind her, a crescent moon held like a lamp, night sky inside the arch, deep blue and silver palette"
+    },
+    {
+      "id": "thanatos",
+      "sheet": "oracle-cast-05.png",
+      "slot": [
+        0,
+        2
+      ],
+      "name": "Thanatos",
+      "epithet": "The Gentle End",
+      "fate": "Mercy and death can arrive in the same hand.",
+      "ability": "The Debt Collected",
+      "description": "Deal 4 damage and delay the target's next attack.",
+      "effect": "bind",
+      "power": 4,
+      "art": "a pale young man with long silver-white hair and folded black wings, holding a slim scythe in one hand and a butterfly on the other, cypress trees and a grey field behind him, ivory and charcoal palette"
+    },
+    {
+      "id": "megaera",
+      "sheet": "oracle-cast-05.png",
+      "slot": [
+        1,
+        0
+      ],
+      "name": "Megaera",
+      "epithet": "The First Fury",
+      "fate": "A punishment repeated often enough becomes a habit of the punisher.",
+      "ability": "Whip of the Erinyes",
+      "description": "Deal 4 damage to a chosen foe.",
+      "effect": "strike",
+      "power": 4,
+      "art": "a fierce winged woman in dark bronze armour with a red-plumed helm, coiled whip in her raised hand, torches and smoke behind her, crimson and bronze palette"
+    },
+    {
+      "id": "hypnos",
+      "sheet": "oracle-cast-05.png",
+      "slot": [
+        1,
+        1
+      ],
+      "name": "Hypnos",
+      "epithet": "The Soft Sleep",
+      "fate": "Forgetting is a kindness until someone asks you to remember.",
+      "ability": "River of Lethe",
+      "description": "Restore 3 Will and let the party set down some of its weariness.",
+      "effect": "mend",
+      "power": 3,
+      "art": "a sleeping youth with a wreath of poppies, small wings at his temples, leaning on a stone by a slow river, reeds and drowsy mist, lavender and pale gold palette"
+    },
+    {
+      "id": "chaos",
+      "sheet": "oracle-cast-05.png",
+      "slot": [
+        1,
+        2
+      ],
+      "name": "Chaos",
+      "epithet": "The First Void",
+      "fate": "Before the first law there was room for anything, including a different ending.",
+      "ability": "Unmake the Shape",
+      "description": "Spend 1 Thread to deal 5 damage. Without Thread, deal 3 and gain 1 Burden.",
+      "effect": "rewrite",
+      "power": 5,
+      "art": "a faceless figure wrapped in drifting mist and layered violet veils, two open hands framing a ring of tiny stars, no face visible, void and dust behind, violet and pale gold palette"
+    },
+    {
+      "id": "achilles",
+      "sheet": "oracle-cast-06.png",
+      "slot": [
+        0,
+        0
+      ],
+      "name": "Achilles",
+      "epithet": "The Swift-Heeled",
+      "fate": "The one place you refuse to guard is the place that will be found.",
+      "ability": "Spear of Phthia",
+      "description": "Deal 4 damage to a chosen foe.",
+      "effect": "strike",
+      "power": 4,
+      "art": "a bronzed warrior in plumed helm and myrmidon armour, long ash spear planted, shield at his side, sea cliffs and ships behind him, copper and sea blue palette"
+    },
+    {
+      "id": "patroclus",
+      "sheet": "oracle-cast-06.png",
+      "slot": [
+        0,
+        1
+      ],
+      "name": "Patroclus",
+      "epithet": "The Other Half",
+      "fate": "To be remembered well is to be mourned twice.",
+      "ability": "The Kind Hand",
+      "description": "Restore 4 Will and steady the party's nerve.",
+      "effect": "mend",
+      "power": 4,
+      "art": "a gentle bearded man seated on a stone, offering a shallow cup, laurel wreath, linen chiton, olive trees and a quiet camp behind him, cream and olive palette"
+    },
+    {
+      "id": "sisyphus",
+      "sheet": "oracle-cast-06.png",
+      "slot": [
+        0,
+        2
+      ],
+      "name": "Sisyphus",
+      "epithet": "The Returning Stone",
+      "fate": "Repetition is not defeat while the will to lift remains.",
+      "ability": "The Weight and the Hill",
+      "description": "Raise a ward that absorbs 4 damage from the next enemy turn.",
+      "effect": "ward",
+      "power": 4,
+      "art": "a worn man with a narrow bronze crown shouldering a great round boulder on a steep slope, patched chiton, tunnelled rock behind him, ochre and iron palette"
+    },
+    {
+      "id": "charon",
+      "sheet": "oracle-cast-06.png",
+      "slot": [
+        1,
+        0
+      ],
+      "name": "Charon",
+      "epithet": "The Ferryman's Due",
+      "fate": "Every crossing has a price, and the price is never the one you planned.",
+      "ability": "The Coin and the Pole",
+      "description": "Deal 3 damage and delay the target's next attack.",
+      "effect": "bind",
+      "power": 3,
+      "art": "a hooded ferryman in a long grey cloak with a lantern and a long pole, small boat on still black water, one bronze coin held out, ash and slate palette"
+    },
+    {
+      "id": "eurydice",
+      "sheet": "oracle-cast-06.png",
+      "slot": [
+        1,
+        1
+      ],
+      "name": "Eurydice",
+      "epithet": "The Grove's Song",
+      "fate": "What grows in the dark still grows toward something.",
+      "ability": "Green and Low",
+      "description": "Restore 4 Will.",
+      "effect": "mend",
+      "power": 4,
+      "art": "a dryad crowned with poplar leaves holding a small lyre, wheat and fern around her, pale green light from above, spring green and ochre palette"
+    },
+    {
+      "id": "cerberus",
+      "sheet": "oracle-cast-06.png",
+      "slot": [
+        1,
+        2
+      ],
+      "name": "Cerberus",
+      "epithet": "The Three-Jawed Watch",
+      "fate": "A guard that never sleeps forgets what it is guarding.",
+      "ability": "The Gate Holds",
+      "description": "Raise a ward that absorbs 5 damage from the next enemy turn.",
+      "effect": "ward",
+      "power": 5,
+      "art": "a great three-headed hound with a gold collar seated before a bronze gate, pomegranates and bones at its paws, charcoal fur, smoke behind, charcoal and bronze palette"
+    },
+    {
+      "id": "theseus",
+      "sheet": "oracle-cast-07.png",
+      "slot": [
+        0,
+        0
+      ],
+      "name": "Theseus",
+      "epithet": "The Certain Crown",
+      "fate": "Certainty is a wall, and walls decide who is inside.",
+      "ability": "Wall of Athens",
+      "description": "Raise a ward that absorbs 4 damage from the next enemy turn.",
+      "effect": "ward",
+      "power": 4,
+      "art": "a proud young king in a short crowned helm and white chiton, sword point down and round shield forward, marble columns and olive branches behind him, cream and Aegean blue palette"
+    },
+    {
+      "id": "asterius",
+      "sheet": "oracle-cast-07.png",
+      "slot": [
+        0,
+        1
+      ],
+      "name": "Asterius",
+      "epithet": "The Horned Name",
+      "fate": "A name given by enemies can outlast the one given at birth.",
+      "ability": "Labyrinth Charge",
+      "description": "Deal 5 damage to a chosen foe.",
+      "effect": "strike",
+      "power": 5,
+      "art": "a great bull-headed man in heavy bronze shoulder plates holding a double axe, horns scarred, maze walls and dark arch behind him, oxblood and bronze palette"
+    },
+    {
+      "id": "ariadne",
+      "sheet": "oracle-cast-07.png",
+      "slot": [
+        0,
+        2
+      ],
+      "name": "Ariadne",
+      "epithet": "The Given Thread",
+      "fate": "A way out is only useful to someone who intends to return.",
+      "ability": "Follow the Line",
+      "description": "Read the enemy's next intent. Draw a card and gain 1 Favor.",
+      "effect": "insight",
+      "power": 1,
+      "art": "a young woman with a star crown holding a ball of red thread that runs out of frame, sea cliff and a distant ship behind her, wine red and midnight blue palette"
+    },
+    {
+      "id": "icarus",
+      "sheet": "oracle-cast-07.png",
+      "slot": [
+        1,
+        0
+      ],
+      "name": "Icarus",
+      "epithet": "The Near Sun",
+      "fate": "The height is real. So is the fall, and it costs the same.",
+      "ability": "Wax and Feather",
+      "description": "Deal 5 damage to a chosen foe.",
+      "effect": "strike",
+      "power": 5,
+      "art": "a youth with wide feathered wings, some feathers melting and falling away, a great sun disc behind him, sea far below, sky blue and molten gold palette"
+    },
+    {
+      "id": "medusa",
+      "sheet": "oracle-cast-07.png",
+      "slot": [
+        1,
+        1
+      ],
+      "name": "Medusa",
+      "epithet": "The Gaze Unasked",
+      "fate": "A face that cannot be looked at is still a face that wants witness.",
+      "ability": "Turn the Eye",
+      "description": "Deal 3 damage and delay the target's next attack.",
+      "effect": "bind",
+      "power": 3,
+      "art": "a sorrowful woman with serpent hair, holding a polished bronze shield that shows her own reflection, sea caves behind her, stone grey and verdigris palette"
+    },
+    {
+      "id": "scylla",
+      "sheet": "oracle-cast-07.png",
+      "slot": [
+        1,
+        2
+      ],
+      "name": "Scylla",
+      "epithet": "The Six-Necked Name",
+      "fate": "The sea keeps no record of which side of the strait was right.",
+      "ability": "The Strait's Teeth",
+      "description": "Deal 4 damage to a chosen foe.",
+      "effect": "strike",
+      "power": 4,
+      "art": "a monstrous woman rising from surf with hound heads and coiling tentacles at her waist, sea spray and a narrow strait behind her, teal and salt white palette"
+    },
+    {
+      "id": "hecate",
+      "sheet": "oracle-cast-08.png",
+      "slot": [
+        0,
+        0
+      ],
+      "name": "Hecate",
+      "epithet": "The Threefold Lamp",
+      "fate": "A door is a question, and every key is an answer with a price.",
+      "ability": "Crossroads and Keys",
+      "description": "Read the enemy's next intent. Draw a card.",
+      "effect": "insight",
+      "power": 2,
+      "art": "a veiled goddess holding three burning torches and a ring of keys, two hounds at her feet, a crossroads of cypress behind her, black and old gold palette"
+    },
+    {
+      "id": "melinoe",
+      "sheet": "oracle-cast-08.png",
+      "slot": [
+        0,
+        1
+      ],
+      "name": "Melinoë",
+      "epithet": "The Night-Born",
+      "fate": "The dead may be honoured without being obeyed.",
+      "ability": "Two Hands, One Vow",
+      "description": "Restore 4 Will.",
+      "effect": "mend",
+      "power": 4,
+      "art": "a young woman half lit and half in shadow holding twin torches, one pale and one dark, faint procession of ghosts behind her, ghost lilac and black palette"
+    },
+    {
+      "id": "nemesis",
+      "sheet": "oracle-cast-08.png",
+      "slot": [
+        0,
+        2
+      ],
+      "name": "Nemesis",
+      "epithet": "The Owed Blade",
+      "fate": "Justice and revenge share a scale and never share a verdict.",
+      "ability": "Measure and Repay",
+      "description": "Deal 4 damage to a chosen foe.",
+      "effect": "strike",
+      "power": 4,
+      "art": "a winged woman in plain armour holding a balance and a short sword, her gaze level and cold, a broken column behind her, slate blue and silver palette"
+    },
+    {
+      "id": "eris",
+      "sheet": "oracle-cast-08.png",
+      "slot": [
+        1,
+        0
+      ],
+      "name": "Eris",
+      "epithet": "The Golden Apple",
+      "fate": "A gift that divides is still a gift, and it is never free.",
+      "ability": "Disharmony",
+      "description": "Spend 1 Thread to deal 5 damage. Without Thread, deal 3 and gain 1 Burden.",
+      "effect": "rewrite",
+      "power": 5,
+      "art": "a laughing woman in a torn dark robe holding a single golden apple above a small flame, scattered banquet cups and smoke behind her, bruised purple and gold palette"
+    },
+    {
+      "id": "circe",
+      "sheet": "oracle-cast-08.png",
+      "slot": [
+        1,
+        1
+      ],
+      "name": "Circe",
+      "epithet": "The Cup That Binds",
+      "fate": "Being changed is not the same as being less.",
+      "ability": "The Second Shape",
+      "description": "Deal 2 damage and delay the target's next attack.",
+      "effect": "bind",
+      "power": 2,
+      "art": "a sorceress with coiled hair holding a jewelled cup and a staff, swine at her hem, herb bundles and a bronze cauldron behind her, deep green and gold palette"
+    },
+    {
+      "id": "echo",
+      "sheet": "oracle-cast-08.png",
+      "slot": [
+        1,
+        2
+      ],
+      "name": "Echo",
+      "epithet": "The Voice Remaining",
+      "fate": "What remains of a voice can still answer for it.",
+      "ability": "The Last Word",
+      "description": "Restore 3 Will.",
+      "effect": "mend",
+      "power": 3,
+      "art": "a pale nymph fading into stone, lips slightly parted, concentric ripples of sound in the air around her, grey crags behind her, stone grey and sage palette"
+    }
+  ]
+}

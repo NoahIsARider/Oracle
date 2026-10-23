@@ -12,6 +12,16 @@ Oracle is a small complete game. You draw a Fate card, pick two companions, and 
 
 The same game runs in a browser through the Vite dev server. See [Running it](#running-it).
 
+## What 2.1 adds
+
+- **A second cast of twenty four.** The deck grows from twenty five cards to forty nine, drawn from the house below and the roads above it: the night's household, the dead who owe a debt, the maze and the strait, and the strange circle that keeps its own counsel.
+- **Four new sheets in the same hand.** Zagreus to Echo were painted as cast sheets beside the originals, so the frame, the arch and the name plate still match the first deck card for card.
+- **Bind and rewrite spreads wider.** Four new delay cards and two new Thread cards let a reading lean on control instead of damage.
+
+<img src="docs/screens/deck-new-cast.png" alt="The archive at the join between the first cast and the second" width="100%">
+
+The archive at the join between the two casts. The new names sit on the same frame, the same arch and the same cartouche as the first twenty five.
+
 ## What 2.0 adds
 
 - **A fourth act.** The Labyrinth's Echo takes the run to Knossos, under the bronze maze, where the Minotaur guards what the court buried. Four acts now, each with its own board, enemies and story choice.
@@ -87,7 +97,7 @@ A reading that never touches your run. Hold one question in mind, draw three car
 
 ## The deck
 
-Twenty five character cards, drawn from epic and tragedy rather than from a generic fantasy cast, plus six minor arcana signs. Gods who govern things, mortals who were governed by them, and the small cards that speak for the everyday.
+Forty nine character cards, drawn from epic and tragedy rather than from a generic fantasy cast, plus six minor arcana signs. Gods who govern things, mortals who were governed by them, and the small cards that speak for the everyday.
 
 <img src="docs/screens/deck.png" alt="The complete card archive" width="100%">
 
@@ -124,7 +134,7 @@ The game keeps its own save in `localStorage`, so a run survives a reload and th
 
 ```
 src/
-  data.ts       25 character cards, 6 minor arcana, four act scripts
+  data.ts       49 character cards, 6 minor arcana, four act scripts
   game.ts       the whole rules engine as pure state transitions
   App.tsx       every screen: title, oracle reading, draft, board, archive, epilogue
   styles.css    the manuscript look, all of it
@@ -143,7 +153,7 @@ docs/screens/   screenshots used in this README
 
 ## Art pipeline
 
-The illustrations were generated as Mucha style cast sheets, then cut into single cards by `scripts/build_oracle_cards.py`. The script crops the grid, keeps the parchment edge, sets the card size to 512 by 1152 and writes `assets/cards/card-manifest.json`, which the app and the archive both read. `scripts/import_generated_assets.py` does the same work for the newer sets, the minor arcana, the rare skins and the Knossos enemies. Regenerated crops land in `assets/cards/variants/` and are not tracked.
+The illustrations were generated as Mucha style cast sheets, then cut into single cards by `scripts/build_oracle_cards.py`. The script crops the grid, keeps the parchment edge, sets the card size to 512 by 1152 and writes `assets/cards/card-manifest.json`, which the app and the archive both read. `scripts/import_generated_assets.py` does the same work for the newer sets, the minor arcana, the rare skins and the Knossos enemies. The second cast is cut by `scripts/import_expansion_cards.py`, which reads the card list from `assets/cards/expansion-cast.json`, finds the card edges in each new sheet and prints the names in Georgia. Regenerated crops land in `assets/cards/variants/` and are not tracked.
 
 ## License
 

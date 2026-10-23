@@ -1,6 +1,6 @@
 {
   "title": "Oracle Character Tarot",
-  "card_count": 25,
+  "card_count": 49,
   "card_size": {
     "width": 512,
     "height": 1152
@@ -130,6 +130,126 @@
       "id": "orpheus",
       "name": "Orpheus",
       "file": "individual/orpheus.png"
+    },
+    {
+      "id": "zagreus",
+      "name": "Zagreus",
+      "file": "individual/zagreus.png"
+    },
+    {
+      "id": "nyx",
+      "name": "Nyx",
+      "file": "individual/nyx.png"
+    },
+    {
+      "id": "thanatos",
+      "name": "Thanatos",
+      "file": "individual/thanatos.png"
+    },
+    {
+      "id": "megaera",
+      "name": "Megaera",
+      "file": "individual/megaera.png"
+    },
+    {
+      "id": "hypnos",
+      "name": "Hypnos",
+      "file": "individual/hypnos.png"
+    },
+    {
+      "id": "chaos",
+      "name": "Chaos",
+      "file": "individual/chaos.png"
+    },
+    {
+      "id": "achilles",
+      "name": "Achilles",
+      "file": "individual/achilles.png"
+    },
+    {
+      "id": "patroclus",
+      "name": "Patroclus",
+      "file": "individual/patroclus.png"
+    },
+    {
+      "id": "sisyphus",
+      "name": "Sisyphus",
+      "file": "individual/sisyphus.png"
+    },
+    {
+      "id": "charon",
+      "name": "Charon",
+      "file": "individual/charon.png"
+    },
+    {
+      "id": "eurydice",
+      "name": "Eurydice",
+      "file": "individual/eurydice.png"
+    },
+    {
+      "id": "cerberus",
+      "name": "Cerberus",
+      "file": "individual/cerberus.png"
+    },
+    {
+      "id": "theseus",
+      "name": "Theseus",
+      "file": "individual/theseus.png"
+    },
+    {
+      "id": "asterius",
+      "name": "Asterius",
+      "file": "individual/asterius.png"
+    },
+    {
+      "id": "ariadne",
+      "name": "Ariadne",
+      "file": "individual/ariadne.png"
+    },
+    {
+      "id": "icarus",
+      "name": "Icarus",
+      "file": "individual/icarus.png"
+    },
+    {
+      "id": "medusa",
+      "name": "Medusa",
+      "file": "individual/medusa.png"
+    },
+    {
+      "id": "scylla",
+      "name": "Scylla",
+      "file": "individual/scylla.png"
+    },
+    {
+      "id": "hecate",
+      "name": "Hecate",
+      "file": "individual/hecate.png"
+    },
+    {
+      "id": "melinoe",
+      "name": "Melino\u00eb",
+      "file": "individual/melinoe.png"
+    },
+    {
+      "id": "nemesis",
+      "name": "Nemesis",
+      "file": "individual/nemesis.png"
+    },
+    {
+      "id": "eris",
+      "name": "Eris",
+      "file": "individual/eris.png"
+    },
+    {
+      "id": "circe",
+      "name": "Circe",
+      "file": "individual/circe.png"
+    },
+    {
+      "id": "echo",
+      "name": "Echo",
+      "file": "individual/echo.png"
     }
   ]
 }

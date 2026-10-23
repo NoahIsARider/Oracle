@@ -311,7 +311,7 @@ function App() {
 
       {game.screen === 'archive' && (
         <section className="archive-screen">
-          <div className="archive-heading"><div><div className="screen-kicker">THE ILLUSTRATED DECK <i>✦</i> 25 CHARACTERS</div><h1>The Card Archive</h1><p>Gods and tragic lives, each bound to a different answer.</p></div><button className="back-button" onClick={closeArchive}>← <span>RETURN</span></button></div>
+          <div className="archive-heading"><div><div className="screen-kicker">THE ILLUSTRATED DECK <i>✦</i> 49 CHARACTERS</div><h1>The Card Archive</h1><p>Gods and tragic lives, each bound to a different answer.</p></div><button className="back-button" onClick={closeArchive}>← <span>RETURN</span></button></div>
           <div className="archive-grid">{cards.map((card) => <button key={card.id} className="archive-card" onClick={() => setArchiveCard(card)}><img src={characterImage(card.id, game.rareSkins)} alt={card.name} /><span>{card.name}</span></button>)}</div>
           <div className="minor-archive-heading"><small>THE MINOR ARCANA</small><span>Six illustrated signs of the everyday: will, bond, truth and keeping.</span></div>
           <div className="archive-grid minor-archive-grid">{minorArcana.map((card) => <article key={card.id} className="archive-card minor-archive-card"><img src={card.image} alt={card.name} /><span>{card.name}</span></article>)}</div>
